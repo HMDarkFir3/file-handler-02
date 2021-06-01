@@ -1,6 +1,26 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 
-///Utils
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define RESET "\x1B[0m"
+
+/// Strutc
+struct Types {
+    char name;
+    int quantity;
+    int price;
+
+    struct validateDate {
+        int date;
+        int month;
+    };
+};
+
+/// Utils
 void jumpLine() { // Pula a linha
     printf("\n");
 }
@@ -9,6 +29,7 @@ void clearScreen() { // Limpa a tela
     system("cls");
 }
 
+/// Menu
 void buildMenuTopLine() { // Linha superior do menu
     printf("\t%c", 201);
 
@@ -43,6 +64,7 @@ void buildMenuItem(char str[]) { // Seleção do menu
 
     printf("%c", 186);
 }
+
 void buildMenuBottomLine() { // Linha inferior do menu
 
     printf("\t%c", 200);
@@ -55,6 +77,7 @@ void buildMenuBottomLine() { // Linha inferior do menu
 
     jumpLine(); //
 }
+
 void menu() { // Menu
     int change;
     // Menu Top
@@ -82,15 +105,77 @@ void menu() { // Menu
     buildMenuItem(" 10 - Sair");
     jumpLine();
 
-    //Menu bottom
+    // Menu bottom
     buildMenuBottomLine();
 
     // Pula a linha
     jumpLine();
 
+
     printf("\tEscolha uma opcao: ");
     scanf("%d", &change);
+
+    switch(change) {
+        case 1: {
+        }
+
+        case 2: {
+        }
+
+        case 3: {
+        }
+
+        case 4: {
+        }
+
+        case 5: {
+        }
+
+        case 6: {
+        }
+
+        case 7: {
+        }
+
+        case 8: {
+        }
+
+        case 9: {
+        }
+
+        case 10: {
+            quit();
+        }
+
+        default: {
+            clearScreen();
+            printf("Ocorreu um erro no sistema.\n");
+            printf("Por favor, digite um numero de 1 a 10.");
+
+            printf("Pressione qualquer tecla ...");
+            getch();
+        }
+
+    }
 }
+
+/// App
+void dataEntries() { // Entrada de dados
+
+}
+
+void quit() { // Sair
+    clearScreen();
+
+    for(int i = 3; i > -1; i--) {
+        clearScreen();
+        printf("\tFechando em %d", i);
+        Sleep(1000);
+    }
+
+    exit(0);
+}
+
 main() {
     menu();
 }
