@@ -8,19 +8,7 @@
 #define BLU   "\x1B[34m"
 #define RESET "\x1B[0m"
 
-/// Strutc
-struct Types {
-    char name;
-    int quantity;
-    int price;
-
-    struct validateDate {
-        int date;
-        int month;
-    };
-};
-
-/// Utils
+// Utils
 void jumpLine() { // Pula a linha
     printf("\n");
 }
@@ -29,7 +17,7 @@ void clearScreen() { // Limpa a tela
     system("cls");
 }
 
-/// Menu
+// Menu
 void buildMenuTopLine() { // Linha superior do menu
     printf("\t%c", 201);
 
@@ -117,51 +105,66 @@ void menu() { // Menu
 
     switch(change) {
         case 1: {
+            dataEntries();
+            break;
         }
 
         case 2: {
+            break;
         }
 
         case 3: {
+            break;
         }
 
         case 4: {
+            break;
         }
 
         case 5: {
+            break;
         }
 
         case 6: {
+            break;
         }
 
         case 7: {
+            break;
         }
 
         case 8: {
+            break;
         }
 
         case 9: {
+            break;
         }
 
         case 10: {
             quit();
+            break;
         }
 
         default: {
             clearScreen();
-            printf("Ocorreu um erro no sistema.\n");
-            printf("Por favor, digite um numero de 1 a 10.");
+            printf(YEL "\tAtencao: Ocorreu um erro no sistema.\n" RESET);
+            printf("\tPor favor, digite um numero de 1 a 10.\n\n");
 
-            printf("Pressione qualquer tecla ...");
+            printf("\tPressione qualquer tecla ...\n");
             getch();
+
+            clearScreen();
+            main();
         }
 
     }
 }
 
-/// App
+// App
 void dataEntries() { // Entrada de dados
-
+    clearScreen();
+    printf("Beijos");
 }
 
 void quit() { // Sair
@@ -177,5 +180,18 @@ void quit() { // Sair
 }
 
 main() {
+    // Strutc
+    struct types {
+        char name;
+        int quantity;
+        int price;
+
+        struct validateDate {
+            int date;
+            int month;
+        };
+    };
+
+    // Menu
     menu();
 }
