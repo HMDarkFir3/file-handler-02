@@ -8,6 +8,17 @@
 #define BLU   "\x1B[34m"
 #define RESET "\x1B[0m"
 
+// Strutc
+struct types {
+    char name[99];
+    float quantity;
+    float price;
+
+    int month;
+    int year;
+
+};
+
 // Utils
 void jumpLine() { // Pula a linha
     printf("\n");
@@ -15,6 +26,59 @@ void jumpLine() { // Pula a linha
 
 void clearScreen() { // Limpa a tela
     system("cls");
+}
+
+// App
+void dataEntries() { // Entrada de dados
+    // Limpa tela
+    clearScreen();
+
+    struct types types;
+
+    FILE *f;
+
+    f = fopen("product.txt", "w");
+
+    printf("\tDigite o produto: ");
+    scanf("%s", &types.name);
+
+    printf("\tDigite a quantidade: ");
+    scanf("%.2f", &types.quantity);
+
+    printf("\tDigite a preco: ");
+    scanf("%.2f", &types.price);
+
+    printf("\tDigite a mes: ");
+    scanf("%d", &types.month);
+
+    printf("\tDigite a ano: ");
+    scanf("%d", &types.year);
+
+    char validateDate[5];
+
+    validateDate[5] = types.month + "/" + types.year;
+
+    fwrite(&types.name, sizeof(types.name), 1, f);
+    fwrite(&types.quantity, sizeof(types.quantity), 1, f);
+    fwrite(&types.price, sizeof(types.price), 1, f);
+    fwrite(&validateDate, sizeof(validateDate), 1, f);
+
+    fclose(f);
+
+    clearScreen();
+    menu();
+}
+
+void quit() { // Sair
+    clearScreen();
+
+    for(int i = 3; i > -1; i--) {
+        clearScreen();
+        printf("\tFechando em %d", i);
+        Sleep(1000);
+    }
+
+    exit(0);
 }
 
 // Menu
@@ -161,37 +225,7 @@ void menu() { // Menu
     }
 }
 
-// App
-void dataEntries() { // Entrada de dados
-    clearScreen();
-    printf("Beijos");
-}
-
-void quit() { // Sair
-    clearScreen();
-
-    for(int i = 3; i > -1; i--) {
-        clearScreen();
-        printf("\tFechando em %d", i);
-        Sleep(1000);
-    }
-
-    exit(0);
-}
-
 main() {
-    // Strutc
-    struct types {
-        char name;
-        int quantity;
-        int price;
-
-        struct validateDate {
-            int date;
-            int month;
-        };
-    };
-
     // Menu
     menu();
 }
