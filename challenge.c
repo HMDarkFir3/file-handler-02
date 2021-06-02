@@ -43,10 +43,10 @@ void dataEntries() { // Entrada de dados
     scanf("%s", &types.name);
 
     printf("\tDigite a quantidade: ");
-    scanf("%.2f", &types.quantity);
+    scanf("%f", &types.quantity);
 
     printf("\tDigite a preco: ");
-    scanf("%.2f", &types.price);
+    scanf("%f", &types.price);
 
     printf("\tDigite a mes: ");
     scanf("%d", &types.month);
@@ -54,20 +54,71 @@ void dataEntries() { // Entrada de dados
     printf("\tDigite a ano: ");
     scanf("%d", &types.year);
 
-    char validateDate[5];
-
-    validateDate[5] = types.month + "/" + types.year;
-
     fwrite(&types.name, sizeof(types.name), 1, f);
     fwrite(&types.quantity, sizeof(types.quantity), 1, f);
     fwrite(&types.price, sizeof(types.price), 1, f);
-    fwrite(&validateDate, sizeof(validateDate), 1, f);
+    fwrite(&types.month, sizeof(types.month), 1, f);
+    fwrite(&types.year, sizeof(types.year), 1, f);
 
     fclose(f);
 
     clearScreen();
     menu();
 }
+
+void dataList() {
+    // Limpa tela
+    clearScreen();
+
+    struct types types;
+
+    FILE *f;
+
+    f = fopen("product.txt", "r");
+
+    if(f == NULL) {
+        clearScreen();
+        printf(YEL "\tATENCAO: Nenhum arquivo encontrado." RESET);
+        Sleep(1500);
+
+        clearScreen();
+        printf(BLU "\tRedirecionando para entrada de dados." RESET);
+        Sleep(1500);
+
+        dataEntries();
+    }
+
+    printf("\tProduto(s):\n");
+
+    fread(&types.name, sizeof(types.name), 1, f);
+    fread(&types.quantity, sizeof(types.quantity), 1, f);
+    fread(&types.price, sizeof(types.price), 1, f);
+    fread(&types.month, sizeof(types.month), 1, f);
+    fread(&types.year, sizeof(types.year), 1, f);
+
+    if(types.name && types.quantity && types.price) {
+        printf("\t%s: %.2f unidade(s)\n", types.name, types.quantity);
+        printf("\tValor: R$ %.2f\n", types.price);
+
+        if(types.month > 9) {
+            printf("\tValidade: %d/%d\n", types.month, types.year);
+        } else {
+            printf("\tValidade: 0%d/%d\n", types.month, types.year);
+        }
+    }
+
+    jumpLine();
+
+    fclose(f);
+
+    printf("\tPressione qualquer tecla para continuar...");
+    getch();
+
+    jumpLine();
+    menu();
+
+}
+
 
 void quit() { // Sair
     clearScreen();
@@ -174,6 +225,7 @@ void menu() { // Menu
         }
 
         case 2: {
+            dataList();
             break;
         }
 
