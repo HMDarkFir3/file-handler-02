@@ -16,7 +16,6 @@ struct types {
 
     int month;
     int year;
-
 };
 
 // Utils
@@ -28,37 +27,106 @@ void clearScreen() { // Limpa a tela
     system("cls");
 }
 
+int searchName() {
+    // Limpa tela
+    clearScreen();
+
+    // Declaração de struct
+    struct types types;
+
+    FILE *f;
+
+    char searchedName[99];
+    int i, j;
+
+    printf("\tProcurar produto pelo nome: ");
+    scanf("%s", &searchedName);
+
+    f = fopen("product.txt", "r");
+
+    for(i = 0; i < 3; i++) {
+        fread(&types.name, sizeof(types.name), 1, f);
+        fread(&types.quantity, sizeof(types.quantity), 1, f);
+        fread(&types.price, sizeof(types.price), 1, f);
+        fread(&types.month, sizeof(types.month), 1, f);
+        fread(&types.year, sizeof(types.year), 1, f);
+
+        for(j = 0; types.name[j] != '\0'; j++) {
+            if(searchedName[j] != types.name[j]) {
+                break;
+            }
+        }
+
+        if(searchedName[j] == '\0' && types.name[j] == '\0') {
+            clearScreen();
+
+            printf("\tNome procurado: \n");
+            printf("\t%s: %.2f unidade(s)\n", types.name, types.quantity);
+            printf("\tValor: R$ %.2f\n", types.price);
+
+            if(types.month > 9) {
+                printf("\tValidade: %d/%d\n", types.month, types.year);
+            } else {
+                printf("\tValidade: 0%d/%d\n", types.month, types.year);
+            }
+
+            jumpLine();
+
+            fclose(f);
+            return i;
+        }
+    }
+
+    fclose(f);
+    return -1;
+}
+
 // App
 void dataEntries() { // Entrada de dados
     // Limpa tela
     clearScreen();
 
-    struct types types;
+    int i, j = i;
+
 
     FILE *f;
 
     f = fopen("product.txt", "w");
 
-    printf("\tDigite o produto: ");
-    scanf("%s", &types.name);
+    int k;
 
-    printf("\tDigite a quantidade: ");
-    scanf("%f", &types.quantity);
+    printf("\tQuantos produtos deseja adicionar: ");
+    scanf("%d", &k);
 
-    printf("\tDigite a preco: ");
-    scanf("%f", &types.price);
+    clearScreen();
 
-    printf("\tDigite a mes: ");
-    scanf("%d", &types.month);
+    // Declaração de struct
+    struct types types[k];
 
-    printf("\tDigite a ano: ");
-    scanf("%d", &types.year);
+    for(i < 0; i < k + j; i++) {
+        printf("\tDigite o %d produto: ", i + 1);
+        scanf("%s", &types[i].name);
 
-    fwrite(&types.name, sizeof(types.name), 1, f);
-    fwrite(&types.quantity, sizeof(types.quantity), 1, f);
-    fwrite(&types.price, sizeof(types.price), 1, f);
-    fwrite(&types.month, sizeof(types.month), 1, f);
-    fwrite(&types.year, sizeof(types.year), 1, f);
+        printf("\tDigite a quantidade: ");
+        scanf("%f", &types[i].quantity);
+
+        printf("\tDigite a preco: ");
+        scanf("%f", &types[i].price);
+
+        printf("\tDigite a mes: ");
+        scanf("%d", &types[i].month);
+
+        printf("\tDigite a ano: ");
+        scanf("%d", &types[i].year);
+
+        fwrite(&types[i].name, sizeof(types[i].name), 1, f);
+        fwrite(&types[i].quantity, sizeof(types[i].quantity), 1, f);
+        fwrite(&types[i].price, sizeof(types[i].price), 1, f);
+        fwrite(&types[i].month, sizeof(types[i].month), 1, f);
+        fwrite(&types[i].year, sizeof(types[i].year), 1, f);
+
+        jumpLine();
+    }
 
     fclose(f);
 
@@ -70,7 +138,8 @@ void dataList() {
     // Limpa tela
     clearScreen();
 
-    struct types types;
+    // Declaração de struct
+    struct types types[99];
 
     FILE *f;
 
@@ -90,20 +159,24 @@ void dataList() {
 
     printf("\tProduto(s):\n");
 
-    fread(&types.name, sizeof(types.name), 1, f);
-    fread(&types.quantity, sizeof(types.quantity), 1, f);
-    fread(&types.price, sizeof(types.price), 1, f);
-    fread(&types.month, sizeof(types.month), 1, f);
-    fread(&types.year, sizeof(types.year), 1, f);
+    for(int i = 0; i < 99; i++) {
+        fread(&types[i].name, sizeof(types[i].name), 1, f);
+        fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
+        fread(&types[i].price, sizeof(types[i].price), 1, f);
+        fread(&types[i].month, sizeof(types[i].month), 1, f);
+        fread(&types[i].year, sizeof(types[i].year), 1, f);
 
-    if(types.name && types.quantity && types.price) {
-        printf("\t%s: %.2f unidade(s)\n", types.name, types.quantity);
-        printf("\tValor: R$ %.2f\n", types.price);
+        if(types[i].name && types[i].quantity && types[i].price) {
+            jumpLine();
 
-        if(types.month > 9) {
-            printf("\tValidade: %d/%d\n", types.month, types.year);
-        } else {
-            printf("\tValidade: 0%d/%d\n", types.month, types.year);
+            printf("\t%s: %.2f\n", types[i].name, types[i].quantity);
+            printf("\tValor: R$ %.2f\n", types[i].price);
+
+            if(types[i].month > 9) {
+                printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
+            } else {
+                printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+            }
         }
     }
 
@@ -114,11 +187,32 @@ void dataList() {
     printf("\tPressione qualquer tecla para continuar...");
     getch();
 
+    clearScreen();
+
     jumpLine();
     menu();
 
 }
 
+void dataSearchName() { // Pesquisar dados por nome
+    int change;
+    int search;
+
+    search = searchName();
+
+    if(search == -1) {
+        clearScreen();
+        printf("\tNenhum registro encontrado.\n");
+        Sleep(1500);
+        clearScreen();
+    }
+
+    printf("\tPressione qualquer tecla para continuar...");
+    getch();
+
+    clearScreen();
+    menu();
+}
 
 void quit() { // Sair
     clearScreen();
@@ -220,12 +314,12 @@ void menu() { // Menu
 
     switch(change) {
         case 1: {
-            dataEntries();
+            dataEntries(); //Entrada de dados
             break;
         }
 
         case 2: {
-            dataList();
+            dataList(); //Listar dados
             break;
         }
 
@@ -234,6 +328,7 @@ void menu() { // Menu
         }
 
         case 4: {
+            dataSearchName();
             break;
         }
 
