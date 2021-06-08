@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 #include <conio.h>
 
 #define RED   "\x1B[31m"
@@ -7,6 +8,8 @@
 #define YEL   "\x1B[33m"
 #define BLU   "\x1B[34m"
 #define RESET "\x1B[0m"
+
+void menu();
 
 // Strutc
 struct types {
@@ -18,21 +21,21 @@ struct types {
     int year;
 };
 
-// Utils
-void jumpLine() { // Pula a linha
-    printf("\n");
+// Util
+void clearScreen() {
+    system("cls");
 }
 
-void clearScreen() { // Limpa a tela
-    system("cls");
+void jumpLine() {
+    printf("\n");
 }
 
 int searchName() {
     // Limpa tela
     clearScreen();
 
-    // Declaração de struct
-    struct types types;
+    // Declaracao de struct
+    struct types types[4];
 
     FILE *f;
 
@@ -44,31 +47,32 @@ int searchName() {
 
     f = fopen("product.txt", "r");
 
-    for(i = 0; i < 3; i++) {
-        fread(&types.name, sizeof(types.name), 1, f);
-        fread(&types.quantity, sizeof(types.quantity), 1, f);
-        fread(&types.price, sizeof(types.price), 1, f);
-        fread(&types.month, sizeof(types.month), 1, f);
-        fread(&types.year, sizeof(types.year), 1, f);
+    for(i = 0; i < 4; i++) {
+        fread(&types[i].name, sizeof(types[i].name), 1, f);
+        fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
+        fread(&types[i].price, sizeof(types[i].price), 1, f);
+        fread(&types[i].month, sizeof(types[i].month), 1, f);
+        fread(&types[i].year, sizeof(types[i].year), 1, f);
 
-        for(j = 0; types.name[j] != '\0'; j++) {
-            if(searchedName[j] != types.name[j]) {
+        for(j = 0; types[i].name[j] != '\0'; j++) {
+            if(searchedName[j] != types[i].name[j]) {
                 break;
             }
         }
 
-        if(searchedName[j] == '\0' && types.name[j] == '\0') {
+        if(searchedName[j] == '\0' && types[i].name[j] == '\0') {
             clearScreen();
 
-            printf("\tNome procurado: \n");
-            printf("\t%s: %.2f unidade(s)\n", types.name, types.quantity);
-            printf("\tValor: R$ %.2f\n", types.price);
+            printf("\tProduto %d: %s\n", i + 1, types[i].name);
+            printf("\tQuantidade: %.2f\n", types[i].quantity);
+            printf("\tValor: R$ %.2f\n", types[i].price);
 
-            if(types.month > 9) {
-                printf("\tValidade: %d/%d\n", types.month, types.year);
+            if(types[i].month > 9) {
+                printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
             } else {
-                printf("\tValidade: 0%d/%d\n", types.month, types.year);
+                printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
             }
+
 
             jumpLine();
 
@@ -86,24 +90,28 @@ void dataEntries() { // Entrada de dados
     // Limpa tela
     clearScreen();
 
-    int i, j = i;
-
+    int i, j;
 
     FILE *f;
 
     f = fopen("product.txt", "w");
 
-    int k;
-
-    printf("\tQuantos produtos deseja adicionar: ");
-    scanf("%d", &k);
+    clearScreen();
 
     clearScreen();
 
-    // Declaração de struct
-    struct types types[k];
+    // Declaracao de struct
+    struct types types[4];
 
-    for(i < 0; i < k + j; i++) {
+    if(types[0].name[0] == NULL) {
+        for(i = 0; i < 4; i++) {
+            for(j = 0; j < 4; j++) {
+                types[i].name[j] == NULL;
+            }
+        }
+    }
+
+    for(i = 0; i < 4; i++) {
         printf("\tDigite o %d produto: ", i + 1);
         scanf("%s", &types[i].name);
 
@@ -113,20 +121,25 @@ void dataEntries() { // Entrada de dados
         printf("\tDigite a preco: ");
         scanf("%f", &types[i].price);
 
+     
         printf("\tDigite a mes: ");
         scanf("%d", &types[i].month);
 
         printf("\tDigite a ano: ");
         scanf("%d", &types[i].year);
 
+        jumpLine();
+    }
+
+    for(i = 0; i < 4; i++) {
         fwrite(&types[i].name, sizeof(types[i].name), 1, f);
         fwrite(&types[i].quantity, sizeof(types[i].quantity), 1, f);
         fwrite(&types[i].price, sizeof(types[i].price), 1, f);
         fwrite(&types[i].month, sizeof(types[i].month), 1, f);
         fwrite(&types[i].year, sizeof(types[i].year), 1, f);
-
-        jumpLine();
     }
+
+    jumpLine();
 
     fclose(f);
 
@@ -138,8 +151,10 @@ void dataList() {
     // Limpa tela
     clearScreen();
 
-    // Declaração de struct
-    struct types types[99];
+    int i, j;
+
+    // Declaraï¿½ï¿½o de struct
+    struct types types[4];
 
     FILE *f;
 
@@ -151,25 +166,31 @@ void dataList() {
         Sleep(1500);
 
         clearScreen();
-        printf(BLU "\tRedirecionando para entrada de dados." RESET);
-        Sleep(1500);
-
-        dataEntries();
+        menu();
     }
 
-    printf("\tProduto(s):\n");
+    if(types[0].name[0] == NULL) {
+        for(i = 0; i < 4; i++) {
+            for(j = 0; j < 4; j++) {
+                types[i].name[j] == NULL;
+            }
+        }
+    }
 
-    for(int i = 0; i < 99; i++) {
+    for(int i = 0; i < 4; i++) {
         fread(&types[i].name, sizeof(types[i].name), 1, f);
         fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
         fread(&types[i].price, sizeof(types[i].price), 1, f);
         fread(&types[i].month, sizeof(types[i].month), 1, f);
         fread(&types[i].year, sizeof(types[i].year), 1, f);
+    }
 
-        if(types[i].name && types[i].quantity && types[i].price) {
-            jumpLine();
-
-            printf("\t%s: %.2f\n", types[i].name, types[i].quantity);
+    for(int i = 0; i < 4; i++) {
+        if(types[i].name[0] == NULL) {
+            break;
+        } else {
+            printf("\tProduto %d: %s\n", i + 1, types[i].name);
+            printf("\tQuantidade: %.2f\n", types[i].quantity);
             printf("\tValor: R$ %.2f\n", types[i].price);
 
             if(types[i].month > 9) {
@@ -177,6 +198,8 @@ void dataList() {
             } else {
                 printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
             }
+
+             jumpLine();
         }
     }
 
@@ -192,6 +215,64 @@ void dataList() {
     jumpLine();
     menu();
 
+}
+
+void dataListPriceRange() {
+    // Limpa tela
+    clearScreen();
+
+    // Declaracao de struct
+    struct types types[4];
+
+    FILE *f;
+
+    float searchedPriceRange1 = 0;
+    float searchedPriceRange2 = 0;
+    int i, j;
+
+    printf("\tProcurar produto pela faixa de preco 1: ");
+    scanf("%f", &searchedPriceRange1);
+
+    printf("\tProcurar produto pela faixa de preco 2: ");
+    scanf("%f", &searchedPriceRange2);
+
+    f = fopen("product.txt", "r");
+
+    clearScreen();
+
+    printf("\tFaixa de preco: R$ %.2f - R$ %.2f\n\n", searchedPriceRange1, searchedPriceRange2);
+
+    for(i = 0; i < 4; i++) {
+        fread(&types[i].name, sizeof(types[i].name), 1, f);
+        fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
+        fread(&types[i].price, sizeof(types[i].price), 1, f);
+        fread(&types[i].month, sizeof(types[i].month), 1, f);
+        fread(&types[i].year, sizeof(types[i].year), 1, f);
+
+        if(types[i].price >= searchedPriceRange1 && types[i].price <= searchedPriceRange2) {
+
+            printf("\tProduto %d: %s\n", i + 1, types[i].name);
+            printf("\tQuantidade: %.2f\n", types[i].quantity);
+            printf("\tValor: R$ %.2f\n", types[i].price);
+
+            if(types[i].month > 9) {
+                printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
+            } else {
+                printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+            }
+
+
+            jumpLine();
+        }
+    }
+
+    fclose(f);
+
+    printf("\tPressione qualquer tecla para continuar...");
+    getch();
+
+    clearScreen();
+    menu();
 }
 
 void dataSearchName() { // Pesquisar dados por nome
@@ -214,7 +295,61 @@ void dataSearchName() { // Pesquisar dados por nome
     menu();
 }
 
-void quit() { // Sair
+void dataSearchValidateDate() {
+    // Limpa tela
+    clearScreen();
+
+    // Declaracao de struct
+    struct types types[4];
+
+    FILE *f;
+
+    int i, j;
+    int searchedValidateDateMonth;
+    int searchedValidateDateYear;
+
+    printf("\tDigite o mes: ");
+    scanf("%d", &searchedValidateDateMonth);
+
+    printf("\tDigite o ano: ");
+    scanf("%d", &searchedValidateDateYear);
+
+    f = fopen("product.txt", "r");
+
+    clearScreen();
+
+    for(i = 0; i < 4; i++) {
+        fread(&types[i].name, sizeof(types[i].name), 1, f);
+        fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
+        fread(&types[i].price, sizeof(types[i].price), 1, f);
+        fread(&types[i].month, sizeof(types[i].month), 1, f);
+        fread(&types[i].year, sizeof(types[i].year), 1, f);
+
+        if(types[i].month == searchedValidateDateMonth && types[i].year == searchedValidateDateYear) {
+            printf("\tProduto %d: %s\n", i + 1, types[i].name);
+            printf("\tQuantidade: %.2f\n", types[i].quantity);
+            printf("\tValor: R$ %.2f\n", types[i].price);
+
+            if(types[i].month > 9) {
+                printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
+            } else {
+                printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+            }
+
+            jumpLine();
+        }
+    }
+
+    fclose(f);
+    
+    printf("\tPressione qualquer tecla para continuar...");
+    getch();
+
+    clearScreen();
+    menu();
+}
+
+void quit() {
     clearScreen();
 
     for(int i = 3; i > -1; i--) {
@@ -227,83 +362,25 @@ void quit() { // Sair
 }
 
 // Menu
-void buildMenuTopLine() { // Linha superior do menu
-    printf("\t%c", 201);
-
-    for(int i = 0; i < 73; i++) {
-        printf("%c", 205);
-    }
-
-    printf("%c", 187);
-
-    jumpLine();
-}
-
-void buildMenuItem(char str[]) { // Seleção do menu
-
-    int countLetters = 0;
-
-    for(int i = 0; i < 73; i++) {
-        if(str[i] == '\0') {
-            break;
-        } else {
-            countLetters++;
-        }
-    }
-
-    printf("\t%c", 186);
-    printf("%s", str);
-
-    while(countLetters < 73) {
-        printf("%c", 32);
-        countLetters++;
-    }
-
-    printf("%c", 186);
-}
-
-void buildMenuBottomLine() { // Linha inferior do menu
-
-    printf("\t%c", 200);
-
-    for(int i = 0; i < 73; i++) {
-        printf("%c", 205);
-    }
-
-    printf("%c", 188);
-
-    jumpLine(); //
-}
-
-void menu() { // Menu
+void menu() {
     int change;
     // Menu Top
-    buildMenuTopLine();
+    printf("\t|-------------------------------------------------------------------------|\n");
 
     // Menu Item
-    buildMenuItem(" 1 - Entrada de dados");
-    jumpLine();
-    buildMenuItem(" 2 - Listar todos os produtos");
-    jumpLine();
-    buildMenuItem(" 3 - Listar produtos por faixa de preço");
-    jumpLine();
-    buildMenuItem(" 4 - Pesquisar um produto pelo nome completo");
-    jumpLine();
-    buildMenuItem(" 5 - Pesquisar data de validade (mês/ano)");
-    jumpLine();
-    buildMenuItem(" 6 - Altera produto pesquisado pelo nome completo");
-    jumpLine();
-    buildMenuItem(" 7 - Altera quantidade em estoque (entrada e saída) pesquisado pelo nome");
-    jumpLine();
-    buildMenuItem(" 8 - Altera preço de um produto pesquisado pelo nome completo");
-    jumpLine();
-    buildMenuItem(" 9 - Excluir produto");
-    jumpLine();
-    buildMenuItem(" 10 - Sair");
-    jumpLine();
+    printf("\t| 1 - Entrada de dados                                                    |\n");
+    printf("\t| 2 - Listar todos os produtos                                            |\n");
+    printf("\t| 3 - Listar produtos por faixa de preco                                  |\n");
+    printf("\t| 4 - Pesquisar um produto pelo nome completo                             |\n");
+    printf("\t| 5 - Pesquisar data de validade (mes/ano)                                |\n");
+    printf("\t| 6 - Altera produto pesquisado pelo nome completo                        |\n");
+    printf("\t| 7 - Altera quantidade em estoque (entrada e saida) pesquisado pelo nome |\n");
+    printf("\t| 8 - Altera preco de um produto pesquisado pelo nome completo            |\n");
+    printf("\t| 9 - Excluir produto                                                     |\n");
+    printf("\t| 10 - Sair                                                               |\n");
 
     // Menu bottom
-    buildMenuBottomLine();
+    printf("\t|-------------------------------------------------------------------------|\n");
 
     // Pula a linha
     jumpLine();
@@ -314,16 +391,17 @@ void menu() { // Menu
 
     switch(change) {
         case 1: {
-            dataEntries(); //Entrada de dados
+            dataEntries();
             break;
         }
 
         case 2: {
-            dataList(); //Listar dados
+            dataList();
             break;
         }
 
         case 3: {
+            dataListPriceRange();
             break;
         }
 
@@ -333,6 +411,7 @@ void menu() { // Menu
         }
 
         case 5: {
+            dataSearchValidateDate();
             break;
         }
 
@@ -366,13 +445,13 @@ void menu() { // Menu
             getch();
 
             clearScreen();
-            main();
+            menu();
         }
-
     }
 }
 
-main() {
-    // Menu
+int main(void) {
+    clearScreen();
     menu();
+    return 0;
 }
