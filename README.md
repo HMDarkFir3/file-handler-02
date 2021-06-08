@@ -19,8 +19,18 @@
 ---
 
 ## 📋 Sobre
-Manipulador de arquivos.
+Manipulador de arquivos, utilizando struct. Desafio 2.0 da faculdade, linguagem C.
   
+---
+
+## ⚙️ Funcionalidades
+
+- [x] Adicionar dados.
+- [x] Listar dados.
+- [x] Listar dados por faixa de preço.
+- [x] Pesquisar dados por nome.
+- [x] Pesquisar dados pela data de validade.
+
 ---
 
 ## 📂 Como rodar este projeto
