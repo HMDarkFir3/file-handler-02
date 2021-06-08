@@ -22,15 +22,15 @@ struct types {
 };
 
 // Util
-void clearScreen() {
+void clearScreen() { // Limpa tela
     system("cls");
 }
 
-void jumpLine() {
+void jumpLine() { // Pula linha
     printf("\n");
 }
 
-int searchName() {
+int searchName() { // Pesquisa o nome
     // Limpa tela
     clearScreen();
 
@@ -147,7 +147,7 @@ void dataEntries() { // Entrada de dados
     menu();
 }
 
-void dataList() {
+void dataList() { // Lista os dados
     // Limpa tela
     clearScreen();
 
@@ -217,7 +217,7 @@ void dataList() {
 
 }
 
-void dataListPriceRange() {
+void dataListPriceRange() { // Lista os dados pela faixa de preco
     // Limpa tela
     clearScreen();
 
@@ -295,7 +295,7 @@ void dataSearchName() { // Pesquisar dados por nome
     menu();
 }
 
-void dataSearchValidateDate() {
+void dataSearchValidateDate() { // Pesquisar dados pela data de validade
     // Limpa tela
     clearScreen();
 
@@ -349,7 +349,7 @@ void dataSearchValidateDate() {
     menu();
 }
 
-void quit() {
+void quit() { // Sair do programa
     clearScreen();
 
     for(int i = 3; i > -1; i--) {
