@@ -30,6 +30,7 @@ Manipulador de arquivos, utilizando struct. Desafio 2.0 da faculdade, linguagem 
 - [x] Listar dados pela faixa de preço.
 - [x] Pesquisar dados pelo nome.
 - [x] Pesquisar dados pela data de validade.
+- [x] Editar nome do dado.
 
 ---
 
