@@ -19,8 +19,9 @@
 ---
 
 ## 📋 Sobre
+
 Manipulador de arquivos, utilizando struct. Desafio 2.0 da faculdade, linguagem C.
-  
+
 ---
 
 ## ⚙️ Funcionalidades
@@ -31,6 +32,9 @@ Manipulador de arquivos, utilizando struct. Desafio 2.0 da faculdade, linguagem 
 - [x] Pesquisar dados pelo nome.
 - [x] Pesquisar dados pela data de validade.
 - [x] Editar nome do dado.
+- [x] Editar quantidade do dado.
+- [x] Editar preço do dado.
+- [x] Editar mês e ano do dado.
 
 ---
 
@@ -49,7 +53,7 @@ $ cd DesafioFaculdade_02
 ```
 
 ## 🚀 Tecnologias Utilizadas
- 
+
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 - [C](https://docs.microsoft.com/pt-br/cpp/?view=msvc-160)
@@ -62,7 +66,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 2. Crie uma nova branch com as suas alterações: `git checkout -b my-feature`
 3. Salve as alterações e crie uma mensagem de commit contando o que você fez: `git commit -m "feature: My new feature"`
 4. Envie as suas alterações: `git push origin my-feature`
-> Caso tenha alguma dúvida confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions)
+   > Caso tenha alguma dúvida confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions)
 
 ---
 
@@ -71,17 +75,18 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 <img style="border-radius: 50%;" src="https://github.com/HMDarkFir3.png" width="150px;" alt=""/>
 <h4>Henrique Luís Oliveira Marques</h4>
 
-[![Linkedin Badge](https://img.shields.io/badge/-Henrique-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/) 
----
-<img style="border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/C5603AQGctH94qrj_WA/profile-displayphoto-shrink_400_400/0/1599742973448?e=1622678400&v=beta&t=budFMjRkzgpSR4Wu9cgu6ej_20uZPjOELCFFE5VET4s" width="150px;" alt=""/>
-<h4>Vinícius Andrade</h4> 
+## [![Linkedin Badge](https://img.shields.io/badge/-Henrique-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
 
-[![Linkedin Badge](https://img.shields.io/badge/-Vinícius-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/vinícius-andrade-a671491b3/)](https://www.linkedin.com/in/vinícius-andrade-a671491b3/) 
+<img style="border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/C5603AQGctH94qrj_WA/profile-displayphoto-shrink_400_400/0/1599742973448?e=1622678400&v=beta&t=budFMjRkzgpSR4Wu9cgu6ej_20uZPjOELCFFE5VET4s" width="150px;" alt=""/>
+<h4>Vinícius Andrade</h4>
+
+[![Linkedin Badge](https://img.shields.io/badge/-Vinícius-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/vinícius-andrade-a671491b3/)](https://www.linkedin.com/in/vinícius-andrade-a671491b3/)
 
 ---
 
 ## 📝 Licença
-Este projeto esta sobe a licença MIT. Veja a [LICENÇA](./LICENSE) para saber mais. 
+
+Este projeto esta sobe a licença MIT. Veja a [LICENÇA](./LICENSE) para saber mais.
 <br>
 👋🏽 [Entre em contato! - Henrique](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
 <br>

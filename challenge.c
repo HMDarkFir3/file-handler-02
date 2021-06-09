@@ -563,7 +563,7 @@ void dataEditQuantity() {
   float aux;
   float quantity1;
 
-  // aux pegando valor de types.name
+  // aux pegando valor de types.quantity
   aux = types.quantity;
   
   // Alterando produto
@@ -593,6 +593,190 @@ void dataEditQuantity() {
   clearScreen();
 
   printf(GRN "\tQuantidade alterado(a) com sucesso." RESET);
+  Sleep(1500);
+
+  // Limpa tela
+  clearScreen();
+
+  // Chamada do menu
+  menu();
+}
+
+void dataEditPrice() {
+  // Declaracao de struct
+  struct types types;
+
+  // Variaveis
+  int n_reg;
+  int i, j;
+
+  // Declarando o arquivo
+  FILE *f;
+
+  // Limpa tela
+  clearScreen();
+
+  // Chamada da funcao 
+  n_reg = searchName();
+
+  // Verificando se existe algum registro
+  if(n_reg == -1) {
+    clearScreen();
+    printf("\tNenhum registro encontrado.\n");
+
+    // Pula linha
+    printf("\n");
+
+    // Pausando a aplicacao
+    printf("\tPressione qualquer tecla para continuar...");
+    getch();
+
+    // Limpa tela
+    clearScreen();
+
+    // Chamada do menu
+    menu();
+  }
+
+  // Abre o arquivo product.txt
+  f = fopen("product.txt", "r+");
+
+  // Pulando a struct (bytes)
+  fseek(f, n_reg * sizeof(struct types), 0);
+
+  // Lendo os dados
+  fread(&types, sizeof(struct types), 1, f);
+
+  // Variaveis
+  float aux;
+
+  // aux pegando valor de types.price
+  aux = types.price;
+  
+  // Alterando produto
+  printf("\tAlterar R$ %.2f ->: ", aux);
+  scanf("%f", &types.price);
+
+  // Volta ao inicio do arquivo
+  rewind(f);
+
+  // Pulando a struct (bytes)
+  fseek(f, (n_reg * sizeof(struct types)) + sizeof(types.name) + sizeof(types.quantity), 0);  
+
+  // Inserindo dados alterados
+  fwrite(&types.price, sizeof(types.price), 1, f);
+
+  // Fecha o arquivo product.txt
+  fclose(f);
+
+  // Limpa tela
+  clearScreen();
+
+  printf(GRN "\tPreco alterado(a) com sucesso." RESET);
+  Sleep(1500);
+
+  // Limpa tela
+  clearScreen();
+
+  // Chamada do menu
+  menu();
+}
+
+void dataEditValidateDate() {
+  // Declaracao de struct
+  struct types types;
+
+  // Variaveis
+  int n_reg;
+  int i, j;
+
+  // Declarando o arquivo
+  FILE *f;
+
+  // Limpa tela
+  clearScreen();
+
+  // Chamada da funcao 
+  n_reg = searchName();
+
+  // Verificando se existe algum registro
+  if(n_reg == -1) {
+    clearScreen();
+    printf("\tNenhum registro encontrado.\n");
+
+    // Pula linha
+    printf("\n");
+
+    // Pausando a aplicacao
+    printf("\tPressione qualquer tecla para continuar...");
+    getch();
+
+    // Limpa tela
+    clearScreen();
+
+    // Chamada do menu
+    menu();
+  }
+
+  // Abre o arquivo product.txt
+  f = fopen("product.txt", "r+");
+
+  // Pulando a struct (bytes)
+  fseek(f, n_reg * sizeof(struct types), 0);
+
+  // Lendo os dados
+  fread(&types, sizeof(struct types), 1, f);
+
+  // Variaveis
+  int aux1;
+  int aux2;
+
+  // aux1 pegando valor de types.month
+  aux1 = types.month;
+
+  // Alterando validade mes
+  printf("\tAlterar mes %d ->: ", aux1);
+  scanf("%d", &types.month);
+
+  // aux2 pegando valor de types.year
+  aux2 = types.year;
+
+  // Alterando validade ano
+  printf("\tAlterar ano %d ->: ", aux2);
+  scanf("%d", &types.year);
+
+  // Volta ao inicio do arquivo
+  rewind(f);
+
+  // Pulando a struct (bytes)
+  fseek(f, (n_reg * sizeof(struct types)) + sizeof(types.name) + sizeof(types.quantity) + sizeof(types.price), 0);  
+
+  // Inserindo dados alterados
+  fwrite(&types.month, sizeof(types.month), 1, f);
+
+  // Volta ao inicio do arquivo
+  rewind(f);
+
+  // Pulando a struct (bytes)
+  fseek(f, (
+    n_reg * 
+    sizeof(struct types)) + 
+    sizeof(types.name) + 
+    sizeof(types.quantity) + 
+    sizeof(types.price) + 
+    sizeof(types.month), 
+  0);  
+
+  // Inserindo dados alterados
+  fwrite(&types.year, sizeof(types.year), 1, f);
+
+  // Fecha o arquivo product.txt
+  fclose(f);
+
+  // Limpa tela
+  clearScreen();
+
+  printf(GRN "\tPreco alterado(a) com sucesso." RESET);
   Sleep(1500);
 
   // Limpa tela
@@ -636,6 +820,7 @@ void menu() {
   printf("\t| 8 - Altera preco de um produto pesquisado pelo nome completo            |\n");
   printf("\t| 9 - Excluir produto                                                     |\n");
   printf("\t| 10 - Sair                                                               |\n");
+  printf("\t| 11 - Alterar validade de um produto pesquisado pelo nome completo       |\n");
 
   // Menu bottom
   printf("\t|-------------------------------------------------------------------------|\n");
@@ -690,6 +875,7 @@ void menu() {
     }
 
     case 8: {
+      dataEditPrice();
       break;
     }
 
@@ -701,6 +887,10 @@ void menu() {
       // Sair do programa
       quit();
       break;
+    }
+
+    case 11: {
+      dataEditValidateDate();
     }
 
     default: {
