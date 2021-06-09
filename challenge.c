@@ -437,6 +437,86 @@ void dataSearchValidateDate() { // Pesquisar dados pela data de validade
     menu();
 }
 
+void dataEdit() { // Alterar produto
+    // Declaracao de struct
+    struct types types[4];
+
+    // Variaveis
+    int n_reg;
+    int n_bytes;
+    int i, j;
+
+    // Declarando o arquivo
+    FILE *f;
+
+    // Limpa tela
+    clearScreen();
+
+    // Chamada da funcao 
+    n_reg = searchName();
+
+    // Verificando se existe algum registro
+    if(n_reg == -1) {
+        clearScreen();
+        printf("\tNenhum registro encontrado.\n");
+        return;
+    }
+
+    // Somando os dados
+    n_bytes = (
+        sizeof(types[n_reg].name) + 
+        sizeof(types[n_reg].quantity) + 
+        sizeof(types[n_reg].price) + 
+        sizeof(types[n_reg].month) +
+        sizeof(types[n_reg].year)
+    ) * n_reg;
+
+    // Abre o arquivo product.txt
+    f = fopen("product.txt", "r+");
+
+    fseek(f, n_bytes, 0);
+
+    // Lendo os dados
+    fread(&types[n_reg].name, sizeof(types[n_reg].name), 1, f);
+    fread(&types[n_reg].quantity, sizeof(types[n_reg].quantity), 1, f);
+    fread(&types[n_reg].price, sizeof(types[n_reg].price), 1, f);
+    fread(&types[n_reg].month, sizeof(types[n_reg].month), 1, f);
+    fread(&types[n_reg].year, sizeof(types[n_reg].year), 1, f);
+
+    // Variaveis
+    char aux1[99];
+    int aux2;
+
+    // aux1 pegando valor de types.name
+    for(int i = 0; i < 99; i++) {
+        aux1[i] = types[n_reg].name[i];
+    }
+
+    // Alterando produto
+    printf("\tAlterar %s ->: ", aux1);
+    scanf("%s", &types[n_reg].name);
+
+    fseek(f, n_bytes, 0);
+
+    // Inserindo dados alterados
+    fwrite(&types[n_reg].name, sizeof(types[n_reg].name), 1, f);
+
+    // Fecha o arquivo product.txt
+    fclose(f);
+
+    // Limpa tela
+    clearScreen();
+
+    printf(GRN "\tProduto alterado(a) com sucesso." RESET);
+    Sleep(1500);
+
+    // Limpa tela
+    clearScreen();
+
+    // Chamada do menu
+    menu();
+}
+
 void quit() { // Sair do programa
     // Limpa tela
     clearScreen();
@@ -454,7 +534,9 @@ void quit() { // Sair do programa
 
 // Menu
 void menu() {
+    // Variaveis
     int change;
+
     // Menu Top
     printf("\t|-------------------------------------------------------------------------|\n");
 
@@ -513,6 +595,7 @@ void menu() {
         }
 
         case 6: {
+            dataEdit();
             break;
         }
 
