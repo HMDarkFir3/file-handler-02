@@ -35,6 +35,8 @@ Manipulador de arquivos, utilizando struct. Desafio 2.0 da faculdade, linguagem 
 - [x] Editar quantidade do dado.
 - [x] Editar preço do dado.
 - [x] Editar mês e ano do dado.
+- [x] Deletar dados.
+- [x] Sair do programa.
 
 ---
 
