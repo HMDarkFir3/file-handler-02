@@ -11,7 +11,7 @@
 
 void menu();
 
-// Strutc
+// Struct
 struct types {
   char name[20];
   float quantity;
@@ -23,16 +23,13 @@ struct types {
 
 // Util
 void clearScreen() { // Limpa tela
-    system("cls");
+    system("cls"); 
 }
 
-int searchName() { // Pesquisa o nome
-  // Declaracao de struct
-  struct types types[4];
-
+int searchName(struct types *p) { // Pesquisa o nome
   // Variaveis
-  char searchedName[99];
-  int i, j;
+  char searchedName[20];
+  int i = 0, j;
 
   // Declarando o arquivo
   FILE *f;
@@ -48,32 +45,34 @@ int searchName() { // Pesquisa o nome
   f = fopen("product.txt", "r");
 
   // Verificando o nome pesquisado e comparando com os dados inseridos
-  for(i = 0; i < 4; i++) {
-    fread(&types[i].name, sizeof(types[i].name), 1, f);
-    fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
-    fread(&types[i].price, sizeof(types[i].price), 1, f);
-    fread(&types[i].month, sizeof(types[i].month), 1, f);
-    fread(&types[i].year, sizeof(types[i].year), 1, f);
+  for(;;i++) {
+    fread(&(*p), sizeof(struct types), 1, f);
 
-    for(j = 0; types[i].name[j] != '\0'; j++) {
-      if(searchedName[j] != types[i].name[j]) {
+    for(j = 0; (*p).name[j] != '\0'; j++) {
+      if(searchedName[j] != (*p).name[j]) {
         break;
       }
     }
 
-    if(searchedName[j] == '\0' && types[i].name[j] == '\0') {
+    if(searchedName[j] == '\0' && (*p).name[j] == '\0') {
       // Limpa tela
       clearScreen();
 
       // Exibindo os valores encontrados
-      printf("\tProduto %d: %s\n", i + 1, types[i].name);
-      printf("\tQuantidade: %.2f\n", types[i].quantity);
-      printf("\tValor: R$ %.2f\n", types[i].price);
+      printf("\tProduto: %s\n", (*p).name);
 
-      if(types[i].month > 9) {
-        printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
+      if((*p).quantity < 0) {
+        printf("\tQuantidade: 0\n", (*p).quantity);
       } else {
-        printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+        printf("\tQuantidade: %.2f\n", (*p).quantity);
+      }
+
+      printf("\tValor: R$ %.2f\n", (*p).price);
+
+      if((*p).month > 9) {
+        printf("\tValidade: %d/%d\n", (*p).month, (*p).year);
+      } else {
+        printf("\tValidade: 0%d/%d\n", (*p).month, (*p).year);
       }
 
       // Pula linha
@@ -93,12 +92,11 @@ int searchName() { // Pesquisa o nome
 }
 
 // App
-void dataEntries() { // Entrada de dados
-  // Declaracao de struct
-  struct types types[4];
-
+void dataEntries(struct types *p) { // Entrada de dados
   // Variaveis
-  int i, j;
+  int i;
+
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -107,45 +105,45 @@ void dataEntries() { // Entrada de dados
   clearScreen();
 
   // Abre o arquivo product.txt
-  f = fopen("product.txt", "w");
+  f = fopen("product.txt", "a");
+
+  a = fread(&(*p), sizeof(struct types), 1, f);
 
   // Valores do struct ficando NULL
-  if(types[0].name[0] == NULL) {
-    for(i = 0; i < 4; i++) {
-      for(j = 0; j < 4; j++) {
-        types[i].name[j] == NULL;
+  if((*p).name[0] == NULL) {
+    for(;;) {
+      for(i = 0; i < 20; i++) {
+        (*p).name[i] == NULL;
+
+        if(a == 0) {
+          break;
+        }
       }
     }
   }
 
   // Entrada de dados
-  for(i = 0; i < 4; i++) {
-    printf("\tDigite o %d produto: ", i + 1);
-    scanf("%s", &types[i].name);
+  printf("\tDigite o produto: ");
+  scanf("%s", &(*p).name);
 
-    printf("\tDigite a quantidade: ");
-    scanf("%f", &types[i].quantity);
+  printf("\tDigite a quantidade: ");
+  scanf("%f", &(*p).quantity);
 
-    printf("\tDigite a preco: ");
-    scanf("%f", &types[i].price);
+  printf("\tDigite a preco: ");
+  scanf("%f", &(*p).price);
 
-    printf("\tDigite a mes: ");
-    scanf("%d", &types[i].month);
+  printf("\tDigite o mes: ");
+  scanf("%d", &(*p).month);
 
-    printf("\tDigite a ano: ");
-    scanf("%d", &types[i].year);
+  printf("\tDigite o ano: ");
+  scanf("%d", &(*p).year);
 
-    // Dados entrando no arquivo product.txt
-    fwrite(&types[i].name, sizeof(types[i].name), 1, f);
-    fwrite(&types[i].quantity, sizeof(types[i].quantity), 1, f);
-    fwrite(&types[i].price, sizeof(types[i].price), 1, f);
-    fwrite(&types[i].month, sizeof(types[i].month), 1, f);
-    fwrite(&types[i].year, sizeof(types[i].year), 1, f);
+  // Dados entrando no arquivo product.txt
+  fwrite(&(*p), sizeof(struct types), 1, f);
 
-    // Pula linha
-    printf("\n");
-  }
-
+  // Pula linha
+  printf("\n");
+  
   // Fecha o arquivo product.txt
   fclose(f);
 
@@ -153,16 +151,14 @@ void dataEntries() { // Entrada de dados
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataList() { // Lista os dados
-  // Declaracao de struct
-  struct types types[4];
-
+void dataList(struct types *p) { // Lista os dados
   // Variaveis
   int i, j;
   int error = 0;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -180,49 +176,53 @@ void dataList() { // Lista os dados
     Sleep(1500);
 
     clearScreen();
-    menu();
+    menu(&p);
   }
 
   // Verificando se o struct esta NULL
-  if(types[0].name[0] == NULL) {
-    for(i = 0; i < 4; i++) {
-      for(j = 0; j < 4; j++) {
-        types[i].name[j] == NULL;
+  if((*p).name[0] == NULL) {
+    for(i = 0; i < 20; i++) {
+      for(j = 0; j < 20; j++) {
+        (*p).name[j] == NULL;
       }
     }
   }
 
   // Lendo os dados
-  for(i = 0; i < 4; i++) {
-    fread(&types[i].name, sizeof(types[i].name), 1, f);
-    fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
-    fread(&types[i].price, sizeof(types[i].price), 1, f);
-    fread(&types[i].month, sizeof(types[i].month), 1, f);
-    fread(&types[i].year, sizeof(types[i].year), 1, f);
-  }
+  for(;;) {
+    a = fread(&(*p), sizeof(struct types), 1, f);
+    
+    if(a == 0) {
+      break;
+    }
 
-  for(i = 0; i < 4; i++) {
     //Verificando se os dados estao NULL
-    if(types[i].name[0] == NULL) {
+    if((*p).name[0] == NULL) {
       error++;
       break;
     } else if(
-      types[i].name && 
-      types[i].quantity && 
-      types[i].price && 
-      types[i].month && 
-      types[i].year
+      (*p).name && 
+      (*p).quantity && 
+      (*p).price && 
+      (*p).month && 
+      (*p).year
     ) {
       // Exibindo os dados
-      printf("\tProduto %d: %s\n", i + 1, types[i].name);
-      printf("\tQuantidade: %.2f\n", types[i].quantity);
-      printf("\tValor: R$ %.2f\n", types[i].price);
+      printf("\tProduto: %s\n", (*p).name);
+
+      if((*p).quantity < 0) {
+        printf("\tQuantidade: 0\n", (*p).quantity);
+      } else {
+        printf("\tQuantidade: %.2f\n", (*p).quantity);
+      }
+
+      printf("\tValor: R$ %.2f\n", (*p).price);
 
       // Verificando se o mes tem 1 digito
-      if(types[i].month > 9) {
-        printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
+      if((*p).month > 9) {
+        printf("\tValidade: %d/%d\n", (*p).month, (*p).year);
       } else {
-        printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+        printf("\tValidade: 0%d/%d\n", (*p).month, (*p).year);
       }
 
       // Pula linha
@@ -249,18 +249,15 @@ void dataList() { // Lista os dados
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataListPriceRange() { // Lista os dados pela faixa de preco
-  // Declaracao de struct
-  struct types types[4];
-
+void dataListPriceRange(struct types *p) { // Lista os dados pela faixa de preco
   // Variaveis
   float searchedPriceRange1 = 0;
   float searchedPriceRange2 = 0;
-  int i, j;
   int error = 0;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -284,26 +281,35 @@ void dataListPriceRange() { // Lista os dados pela faixa de preco
   // Exibindo a faixa de preco que o usuaria digitou
   printf("\tFaixa de preco: R$ %.2f - R$ %.2f\n\n", searchedPriceRange1, searchedPriceRange2);
 
-  for(i = 0; i < 4; i++) {
+  for(;;) {
     // Lendo os dados
-    fread(&types[i].name, sizeof(types[i].name), 1, f);
-    fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
-    fread(&types[i].price, sizeof(types[i].price), 1, f);
-    fread(&types[i].month, sizeof(types[i].month), 1, f);
-    fread(&types[i].year, sizeof(types[i].year), 1, f);
+    a = fread(&(*p), sizeof(struct types), 1, f);
+
+    if(a == 0) {
+      break;
+    }
 
     // Exibindo os dados apos verificacao da faixa de preco
-    if(types[i].price >= searchedPriceRange1 && types[i].price <= searchedPriceRange2) {
-      printf("\tProduto %d: %s\n", i + 1, types[i].name);
-      printf("\tQuantidade: %.2f\n", types[i].quantity);
-      printf("\tValor: R$ %.2f\n", types[i].price);
+    if((*p).price >= searchedPriceRange1 && (*p).price <= searchedPriceRange2) {
 
-      // Verificando se o mes tem 1 digito
-      if(types[i].month > 9) {
-        printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
-      } else {
-        printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+      if(((*p).name && 
+        (*p).quantity && 
+        (*p).price && 
+        (*p).month && 
+        (*p).year)
+        ) {
+        printf("\tProduto: %s\n", (*p).name);
+        printf("\tQuantidade: %.2f\n", (*p).quantity);
+        printf("\tValor: R$ %.2f\n", (*p).price);
+
+        // Verificando se o mes tem 1 digito
+        if((*p).month > 9) {
+          printf("\tValidade: %d/%d\n", (*p).month, (*p).year);
+        } else {
+          printf("\tValidade: 0%d/%d\n", (*p).month, (*p).year);
+        }
       }
+
 
       // Pula linha
       printf("\n");
@@ -332,22 +338,24 @@ void dataListPriceRange() { // Lista os dados pela faixa de preco
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataSearchName() { // Pesquisar dados por nome
+void dataSearchName(struct types *p) { // Pesquisar dados por nome
   // Variaveis
   int change;
   int search;
 
   // Chamada da funcao
-  search = searchName();
+  search = searchName(&p);
 
   // Verificando se existe algum registro
   if(search == -1) {
     clearScreen();
     printf("\tNenhum registro encontrado.\n");
   }
+
+  printf("\n");
 
   // Pausando a aplicacao
   printf("\tPressione qualquer tecla para continuar...");
@@ -357,18 +365,16 @@ void dataSearchName() { // Pesquisar dados por nome
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataSearchValidateDate() { // Pesquisar dados pela data de validade
-  // Declaracao de struct
-  struct types types[4];
-
+void dataSearchValidateDate(struct types *p) { // Pesquisar dados pela data de validade
   // Variaveis
   int searchedValidateDateMonth;
   int searchedValidateDateYear;
   int i, j;
   int error = 0;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -389,25 +395,32 @@ void dataSearchValidateDate() { // Pesquisar dados pela data de validade
   // Limpa tela
   clearScreen();
 
-  for(i = 0; i < 4; i++) {
+  for(;;) {
     // Lendo os dados
-    fread(&types[i].name, sizeof(types[i].name), 1, f);
-    fread(&types[i].quantity, sizeof(types[i].quantity), 1, f);
-    fread(&types[i].price, sizeof(types[i].price), 1, f);
-    fread(&types[i].month, sizeof(types[i].month), 1, f);
-    fread(&types[i].year, sizeof(types[i].year), 1, f);
+     a = fread(&(*p), sizeof(struct types), 1, f);
+
+     if(a == 0) {
+       break;
+     }
 
     // Exibindo os dados apos verificacao da validade do produto
-    if(types[i].month == searchedValidateDateMonth && types[i].year == searchedValidateDateYear) {
-      printf("\tProduto %d: %s\n", i + 1, types[i].name);
-      printf("\tQuantidade: %.2f\n", types[i].quantity);
-      printf("\tValor: R$ %.2f\n", types[i].price);
+    if((*p).month == searchedValidateDateMonth && (*p).year == searchedValidateDateYear) {
+      if(((*p).name && 
+        (*p).quantity && 
+        (*p).price && 
+        (*p).month && 
+        (*p).year)
+        ) {
+        printf("\tProduto: %s\n", (*p).name);
+        printf("\tQuantidade: %.2f\n", (*p).quantity);
+        printf("\tValor: R$ %.2f\n", (*p).price);
 
-      // Verificando se o mes tem 1 digito
-      if(types[i].month > 9) {
-        printf("\tValidade: %d/%d\n", types[i].month, types[i].year);
-      } else {
-        printf("\tValidade: 0%d/%d\n", types[i].month, types[i].year);
+        // Verificando se o mes tem 1 digito
+        if((*p).month > 9) {
+          printf("\tValidade: %d/%d\n", (*p).month, (*p).year);
+        } else {
+          printf("\tValidade: 0%d/%d\n", (*p).month, (*p).year);
+        }
       }
 
       // Pula linha
@@ -437,16 +450,13 @@ void dataSearchValidateDate() { // Pesquisar dados pela data de validade
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataEditName() { // Alterar produto
-  // Declaracao de struct
-  struct types types;
-
+void dataEditName(struct types *p) {  // Alterar nome do produto
   // Variaveis
   int n_reg;
-  int i, j;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -455,7 +465,7 @@ void dataEditName() { // Alterar produto
   clearScreen();
 
   // Chamada da funcao
-  n_reg = searchName();
+  n_reg = searchName(&p);
 
   // Verificando se existe algum registro
   if(n_reg == -1) {
@@ -473,36 +483,42 @@ void dataEditName() { // Alterar produto
     clearScreen();
 
     // Chamada do menu
-    menu();
+    menu(&p);
   }
 
   // Abre o arquivo product.txt
   f = fopen("product.txt", "r+");
 
-  // Pulando a struct (bytes)
-  fseek(f, n_reg * sizeof(struct types), 0);
-
   // Lendo os dados
-  fread(&types, sizeof(struct types), 1, f);
+  for(;;) {
+    // Pulando a struct (bytes)
+    fseek(f, n_reg * sizeof(struct types), 0);
 
+    a = fread(&(*p), sizeof(struct types), 1, f);
+
+    if(a == 1) {
+      break;
+    }
+  }
+  
   // Variaveis
   char aux1[20];
   int aux2;
 
   // aux1 pegando valor de types.name
   for(int i = 0; i < 20; i++) {
-    aux1[i] = types.name[i];
+    aux1[i] = (*p).name[i];
   }
 
   // Alterando produto
   printf("\tAlterar %s ->: ", aux1);
-  scanf("%s", &types.name);
+  scanf("%s", &(*p).name);
 
   // Pulando a struct (bytes)
   fseek(f, n_reg * sizeof(struct types), 0);
 
   // Inserindo dados alterados
-  fwrite(&types.name, sizeof(types.name), 1, f);
+  fwrite(&(*p).name, sizeof((*p).name), 1, f);
 
   // Fecha o arquivo product.txt
   fclose(f);
@@ -517,16 +533,13 @@ void dataEditName() { // Alterar produto
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataEditQuantity() {
-  // Declaracao de struct
-  struct types types;
-
+void dataEditQuantity(struct types *p) { // Alterar quantidade do produto
   // Variaveis
   int n_reg;
-  int i, j;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -535,7 +548,7 @@ void dataEditQuantity() {
   clearScreen();
 
   // Chamada da funcao
-  n_reg = searchName();
+  n_reg = searchName(&p);
 
   // Verificando se existe algum registro
   if(n_reg == -1) {
@@ -553,24 +566,31 @@ void dataEditQuantity() {
     clearScreen();
 
     // Chamada do menu
-    menu();
+    menu(&p);
   }
 
   // Abre o arquivo product.txt
   f = fopen("product.txt", "r+");
 
-  // Pulando a struct (bytes)
-  fseek(f, n_reg * sizeof(struct types), 0);
-
   // Lendo os dados
-  fread(&types, sizeof(struct types), 1, f);
+  for(;;) {
+    // Pulando a struct (bytes)
+    fseek(f, n_reg * sizeof(struct types), 0);
+
+    // Lendo os dados
+    a = fread(&(*p), sizeof(struct types), 1, f);
+
+    if(a == 1) {
+      break;
+    }
+  }
 
   // Variaveis
   float aux;
   float quantity1;
 
   // aux pegando valor de types.quantity
-  aux = types.quantity;
+  aux = (*p).quantity;
 
   // Alterando produto
   printf("\tAlterar %.2f ->: ", aux);
@@ -578,19 +598,19 @@ void dataEditQuantity() {
 
   // Inserindo o dados no types.quantity
   if(quantity1 >= 0) {
-    types.quantity = types.quantity + quantity1;
+    (*p).quantity = (*p).quantity + quantity1;
   } else if(quantity1 < 0) {
-    types.quantity = types.quantity + quantity1;
+    (*p).quantity = (*p).quantity + quantity1;
   }
 
   // Volta ao inicio do arquivo
   rewind(f);
 
   // Pulando a struct (bytes)
-  fseek(f, (n_reg * sizeof(struct types)) + sizeof(types.name), 0);
+  fseek(f, (n_reg * sizeof(struct types)) + sizeof((*p).name), 0);
 
   // Inserindo dados alterados
-  fwrite(&types.quantity, sizeof(types.quantity), 1, f);
+  fwrite(&(*p).quantity, sizeof((*p).quantity), 1, f);
 
   // Fecha o arquivo product.txt
   fclose(f);
@@ -605,16 +625,13 @@ void dataEditQuantity() {
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataEditPrice() {
-  // Declaracao de struct
-  struct types types;
-
+void dataEditPrice(struct types *p) { // Alterar preco do produto
   // Variaveis
   int n_reg;
-  int i, j;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -623,7 +640,7 @@ void dataEditPrice() {
   clearScreen();
 
   // Chamada da funcao
-  n_reg = searchName();
+  n_reg = searchName(&p);
 
   // Verificando se existe algum registro
   if(n_reg == -1) {
@@ -641,36 +658,42 @@ void dataEditPrice() {
     clearScreen();
 
     // Chamada do menu
-    menu();
+    menu(&p);
   }
 
   // Abre o arquivo product.txt
   f = fopen("product.txt", "r+");
 
-  // Pulando a struct (bytes)
-  fseek(f, n_reg * sizeof(struct types), 0);
-
   // Lendo os dados
-  fread(&types, sizeof(struct types), 1, f);
+  for(;;) {
+    // Pulando a struct (bytes)
+    fseek(f, n_reg * sizeof(struct types), 0);
+
+    a = fread(&(*p), sizeof(struct types), 1, f);
+
+    if(a == 1) {
+      break;
+    }
+  }
 
   // Variaveis
   float aux;
 
   // aux pegando valor de types.price
-  aux = types.price;
+  aux = (*p).price;
 
   // Alterando produto
   printf("\tAlterar R$ %.2f ->: ", aux);
-  scanf("%f", &types.price);
+  scanf("%f", &(*p).price);
 
   // Volta ao inicio do arquivo
   rewind(f);
 
   // Pulando a struct (bytes)
-  fseek(f, (n_reg * sizeof(struct types)) + sizeof(types.name) + sizeof(types.quantity), 0);
+  fseek(f, (n_reg * sizeof(struct types)) + sizeof((*p).name) + sizeof((*p).quantity), 0);
 
   // Inserindo dados alterados
-  fwrite(&types.price, sizeof(types.price), 1, f);
+  fwrite(&(*p).price, sizeof((*p).price), 1, f);
 
   // Fecha o arquivo product.txt
   fclose(f);
@@ -685,16 +708,13 @@ void dataEditPrice() {
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
-void dataEditValidateDate() {
-  // Declaracao de struct
-  struct types types;
-
+void dataDelete(struct types *p) { // Deletar produto
   // Variaveis
   int n_reg;
-  int i, j;
+  int a;
 
   // Declarando o arquivo
   FILE *f;
@@ -703,7 +723,7 @@ void dataEditValidateDate() {
   clearScreen();
 
   // Chamada da funcao
-  n_reg = searchName();
+  n_reg = searchName(&p);
 
   // Verificando se existe algum registro
   if(n_reg == -1) {
@@ -721,145 +741,44 @@ void dataEditValidateDate() {
     clearScreen();
 
     // Chamada do menu
-    menu();
+    menu(&p);
   }
 
   // Abre o arquivo product.txt
   f = fopen("product.txt", "r+");
 
-  // Pulando a struct (bytes)
-  fseek(f, n_reg * sizeof(struct types), 0);
+  /// Lendo os dados
+  for(;;) {
+    // Pulando a struct (bytes)
+    fseek(f, n_reg * sizeof(struct types), 0);
 
-  // Lendo os dados
-  fread(&types, sizeof(struct types), 1, f);
+    a = fread(&(*p), sizeof(struct types), 1, f);
 
-  // Variaveis
-  int aux1;
-  int aux2;
-
-  // aux1 pegando valor de types.month
-  aux1 = types.month;
-
-  // Alterando validade mes
-  printf("\tAlterar mes %d ->: ", aux1);
-  scanf("%d", &types.month);
-
-  // aux2 pegando valor de types.year
-  aux2 = types.year;
-
-  // Alterando validade ano
-  printf("\tAlterar ano %d ->: ", aux2);
-  scanf("%d", &types.year);
-
-  // Volta ao inicio do arquivo
-  rewind(f);
-
-  // Pulando a struct (bytes)
-  fseek(f, (n_reg * sizeof(struct types)) + sizeof(types.name) + sizeof(types.quantity) + sizeof(types.price), 0);
-
-  // Inserindo dados alterados
-  fwrite(&types.month, sizeof(types.month), 1, f);
-
-  // Volta ao inicio do arquivo
-  rewind(f);
-
-  // Pulando a struct (bytes)
-  fseek(f, (
-    n_reg *
-    sizeof(struct types)) +
-    sizeof(types.name) +
-    sizeof(types.quantity) +
-    sizeof(types.price) +
-    sizeof(types.month),
-  0);
-
-  // Inserindo dados alterados
-  fwrite(&types.year, sizeof(types.year), 1, f);
-
-  // Fecha o arquivo product.txt
-  fclose(f);
-
-  // Limpa tela
-  clearScreen();
-
-  printf(GRN "\tPreco alterado(a) com sucesso." RESET);
-  Sleep(1500);
-
-  // Limpa tela
-  clearScreen();
-
-  // Chamada do menu
-  menu();
-}
-
-void dataDelete() {
-  // Declaracao de struct
-  struct types types;
-
-  // Variaveis
-  int n_reg;
-
-  // Declarando o arquivo
-  FILE *f;
-
-  // Limpa tela
-  clearScreen();
-
-  // Chamada da funcao
-  n_reg = searchName();
-
-  // Verificando se existe algum registro
-  if(n_reg == -1) {
-    clearScreen();
-    printf("\tNenhum registro encontrado.\n");
-
-    // Pula linha
-    printf("\n");
-
-    // Pausando a aplicacao
-    printf("\tPressione qualquer tecla para continuar...");
-    getch();
-
-    // Limpa tela
-    clearScreen();
-
-    // Chamada do menu
-    menu();
+    if(a == 1) {
+      break;
+    }
   }
-
-  // Abre o arquivo product.txt
-  f = fopen("product.txt", "r+");
-
-  // Pulando a struct (bytes)
-  fseek(f, n_reg * sizeof(struct types), 0);
-
-  // Lendo os dados
-  fread(&types, sizeof(struct types), 1, f);
 
   // Variaveis
   int aux1;
   int aux2;
 
   // Tornando valores NULL
-  types.name[0] = '*';
-  aux1 = types.quantity;
-  aux2 = types.price;
+  (*p).name[0] = '*';
+  aux1 = (*p).quantity;
+  aux2 = (*p).price;
   aux1 = NULL;
   aux2 = NULL;
-  types.quantity = aux1;
-  types.price = aux2;
-  types.month = NULL;
-  types.year = NULL;
+  (*p).quantity = aux1;
+  (*p).price = aux2;
+  (*p).month = NULL;
+  (*p).year = NULL;
 
   // Pulando a struct (bytes)
-  fseek(f, n_reg * sizeof(struct types), 0);
+  fseek(f, n_reg * sizeof(struct types), 0); 
 
   // Inserindo dados excluidos
-  fwrite(&types.name, sizeof(types.name), 1, f);
-  fwrite(&types.quantity, sizeof(types.quantity), 1, f);
-  fwrite(&types.price, sizeof(types.price), 1, f);
-  fwrite(&types.month, sizeof(types.month), 1, f);
-  fwrite(&types.year, sizeof(types.year), 1, f);
+  fwrite(&(*p), sizeof(struct types), 1, f);
 
   // Fecha o arquivo product.txt
   fclose(f);
@@ -874,7 +793,7 @@ void dataDelete() {
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 }
 
 void quit() { // Sair do programa
@@ -893,7 +812,7 @@ void quit() { // Sair do programa
 }
 
 // Menu
-void menu() {
+void menu(struct types *p) {
   // Variaveis
   int change;
 
@@ -911,7 +830,6 @@ void menu() {
   printf("\t| 8 - Altera preco de um produto pesquisado pelo nome completo            |\n");
   printf("\t| 9 - Excluir produto                                                     |\n");
   printf("\t| 10 - Sair                                                               |\n");
-  printf("\t| 11 - Alterar validade de um produto pesquisado pelo nome completo       |\n");
 
   // Menu bottom
   printf("\t|-------------------------------------------------------------------------|\n");
@@ -927,51 +845,51 @@ void menu() {
   switch(change) {
     case 1: {
       // Entrada de dados
-      dataEntries();
+      dataEntries(&p);
       break;
     }
 
     case 2: {
       // Lista de dados
-      dataList();
+      dataList(&p);
       break;
     }
 
     case 3: {
       // Lista de dados pela faixa de preco
-      dataListPriceRange();
+      dataListPriceRange(&p);
       break;
     }
 
     case 4: {
       // Pesquisa dados pelo nome
-      dataSearchName();
+      dataSearchName(&p);
       break;
     }
 
     case 5: {
       // Pesquisa dados pela data de validade
-      dataSearchValidateDate();
+      dataSearchValidateDate(&p);
       break;
     }
 
     case 6: {
-      dataEditName();
+      dataEditName(&p);
       break;
     }
 
     case 7: {
-      dataEditQuantity();
+      dataEditQuantity(&p);
       break;
     }
 
     case 8: {
-      dataEditPrice();
+      dataEditPrice(&p);
       break;
     }
 
     case 9: {
-      dataDelete();
+      dataDelete(&p);
       break;
     }
 
@@ -981,18 +899,13 @@ void menu() {
       break;
     }
 
-    case 11: {
-      dataEditValidateDate();
-      break;
-    }
-
     default: {
       // Limpa tela
       clearScreen();
 
       // WARNING
-      printf(YEL "\tAtencao: Ocorreu um erro no sistema.\n" RESET);
-      printf("\tPor favor, digite um numero de 1 a 10.\n\n");
+      printf(YEL "\tATENCAO: Ocorreu um erro no sistema.\n" RESET);
+      printf(YEL "\tPor favor, digite um numero de 1 a 10.\n\n" RESET);
 
       // Pausando a aplicacao
       printf("\tPressione qualquer tecla ...\n");
@@ -1002,17 +915,26 @@ void menu() {
       clearScreen();
 
       // Chamada do menu
-      menu();
+      menu(&p);
     }
   }
 }
 
 int main(void) {
+  // Declaracao do struct
+  struct types types;
+
+  // Declaracao do struct de ponteiro
+  struct types *p;
+
+  // Atribuicao do ponteiro
+  p = &types;
+
   // Limpa tela
   clearScreen();
 
   // Chamada do menu
-  menu();
+  menu(&p);
 
   return 0;
 }
