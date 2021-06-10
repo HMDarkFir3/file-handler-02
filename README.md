@@ -79,7 +79,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## [![Linkedin Badge](https://img.shields.io/badge/-Henrique-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
 
-<img style="border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/C5603AQGctH94qrj_WA/profile-displayphoto-shrink_400_400/0/1599742973448?e=1622678400&v=beta&t=budFMjRkzgpSR4Wu9cgu6ej_20uZPjOELCFFE5VET4s" width="150px;" alt=""/>
+<img style="border-radius: 50%;" src="https://media-exp3.licdn.com/dms/image/C5603AQGctH94qrj_WA/profile-displayphoto-shrink_400_400/0/1599742973448?e=1628726400&v=beta&t=b8jLA-Vo3XUuRSs1_3tENWHDt4_g6h3NkycIB5Ltj0I" width="150px;" alt=""/>
 <h4>Vinícius Andrade</h4>
 
 [![Linkedin Badge](https://img.shields.io/badge/-Vinícius-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/vinícius-andrade-a671491b3/)](https://www.linkedin.com/in/vinícius-andrade-a671491b3/)
