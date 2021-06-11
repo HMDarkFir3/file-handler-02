@@ -26,7 +26,16 @@ void clearScreen() { // Limpa tela
     system("cls"); 
 }
 
-int searchName(struct types *p) { // Pesquisa o nome
+int searchName() { // Pesquisa o nome
+  // Declaracao do struct
+  struct types types;
+
+  // Declaracao do struct de ponteiro
+  struct types *l;
+
+  // Atribuicao do ponteiro
+  l = &types;
+
   // Variaveis
   char searchedName[20];
   int i = 0, j;
@@ -46,33 +55,33 @@ int searchName(struct types *p) { // Pesquisa o nome
 
   // Verificando o nome pesquisado e comparando com os dados inseridos
   for(;;i++) {
-    fread(&(*p), sizeof(struct types), 1, f);
+    fread(&(*l), sizeof(struct types), 1, f);
 
-    for(j = 0; (*p).name[j] != '\0'; j++) {
-      if(searchedName[j] != (*p).name[j]) {
+    for(j = 0; (*l).name[j] != '\0'; j++) {
+      if(searchedName[j] != (*l).name[j]) {
         break;
       }
     }
 
-    if(searchedName[j] == '\0' && (*p).name[j] == '\0') {
+    if(searchedName[j] == '\0' && (*l).name[j] == '\0') {
       // Limpa tela
       clearScreen();
 
       // Exibindo os valores encontrados
-      printf("\tProduto: %s\n", (*p).name);
+      printf("\tProduto: %s\n", (*l).name);
 
-      if((*p).quantity < 0) {
-        printf("\tQuantidade: 0\n", (*p).quantity);
+      if((*l).quantity < 0) {
+        printf("\tQuantidade: 0\n", (*l).quantity);
       } else {
-        printf("\tQuantidade: %.2f\n", (*p).quantity);
+        printf("\tQuantidade: %.2f\n", (*l).quantity);
       }
 
-      printf("\tValor: R$ %.2f\n", (*p).price);
+      printf("\tValor: R$ %.2f\n", (*l).price);
 
-      if((*p).month > 9) {
-        printf("\tValidade: %d/%d\n", (*p).month, (*p).year);
+      if((*l).month > 9) {
+        printf("\tValidade: %d/%d\n", (*l).month, (*l).year);
       } else {
-        printf("\tValidade: 0%d/%d\n", (*p).month, (*p).year);
+        printf("\tValidade: 0%d/%d\n", (*l).month, (*l).year);
       }
 
       // Pula linha
