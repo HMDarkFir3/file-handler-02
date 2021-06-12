@@ -1,7 +1,7 @@
 <h1 align="center">Manipulador de Arquivos 2.0</h1>
 
 <h1 align="center">
-  🚧 Em Construção... 🚧
+  🚀 Concluído 🚀
 </h1>
 
 <p align="center" >
