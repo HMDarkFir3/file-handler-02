@@ -3,10 +3,8 @@
 #include <windows.h>
 #include <conio.h>
 
-#define RED   "\x1B[31m"
 #define GRN   "\x1B[32m"
 #define YEL   "\x1B[33m"
-#define BLU   "\x1B[34m"
 #define RESET "\x1B[0m"
 
 void menu();
@@ -23,7 +21,7 @@ struct types {
 
 // Util
 void clearScreen() { // Limpa tela
-    system("cls"); 
+    system("cls");
 }
 
 int searchName(struct types *p) { // Pesquisa o nome
@@ -119,7 +117,7 @@ void dataEntries(struct types *p) { // Entrada de dados
   clearScreen();
 
   // Abre o arquivo product.txt
-  f = fopen("product.txt", "a");
+  f = fopen("product.txt", "a+");
 
   // Valores do struct ficando NULL
   if(p -> name[0] == NULL) {
@@ -155,7 +153,7 @@ void dataEntries(struct types *p) { // Entrada de dados
 
   // Pula linha
   printf("\n");
-  
+
   // Fecha o arquivo product.txt
   fclose(f);
 
@@ -202,17 +200,17 @@ void dataList(struct types *p) { // Lista os dados
   // Lendo os dados
   for(;;) {
     read = fread(&(*p), sizeof(struct types), 1, f);
-    
+
     if(read == 0) {
       break;
     }
 
     //Verificando se os dados estao NULL
     if(
-      p -> name && 
-      p -> quantity && 
-      p -> price && 
-      p -> month && 
+      p -> name &&
+      p -> quantity &&
+      p -> price &&
+      p -> month &&
       p -> year
     ) {
       // Exibindo os dados
@@ -235,7 +233,7 @@ void dataList(struct types *p) { // Lista os dados
 
       // Pula linha
       printf("\n");
-    } 
+    }
   }
 
   // Fecha o arquivo product.txt
@@ -304,10 +302,10 @@ void dataListPriceRange(struct types *p) { // Lista os dados pela faixa de preco
     // Exibindo os dados apos verificacao da faixa de preco
     if(p -> price >= searchedPriceRange1 && p -> price <= searchedPriceRange2) {
 
-      if((p -> name && 
-        p -> quantity && 
-        p -> price && 
-        p -> month && 
+      if((p -> name &&
+        p -> quantity &&
+        p -> price &&
+        p -> month &&
         p -> year)
         ) {
         printf("\tProduto: %s\n", p -> name);
@@ -325,7 +323,7 @@ void dataListPriceRange(struct types *p) { // Lista os dados pela faixa de preco
       // Pula linha
       printf("\n");
 
-    } 
+    }
   }
 
   // Fecha o arquivo product.txt
@@ -417,10 +415,10 @@ void dataSearchValidateDate(struct types *p) { // Pesquisar dados pela data de v
 
     // Exibindo os dados apos verificacao da validade do produto
     if(p -> month == searchedValidateDateMonth && p -> year == searchedValidateDateYear) {
-      if((p -> name && 
-        p -> quantity && 
-        p -> price && 
-        p -> month && 
+      if((p -> name &&
+        p -> quantity &&
+        p -> price &&
+        p -> month &&
         p -> year)
         ) {
         printf("\tProduto: %s\n", p -> name);
@@ -438,7 +436,7 @@ void dataSearchValidateDate(struct types *p) { // Pesquisar dados pela data de v
       // Pula linha
       printf("\n");
 
-    } 
+    }
   }
 
   // Fecha o arquivo product.txt
@@ -513,7 +511,7 @@ void dataEditName(struct types *p) {  // Alterar nome do produto
   printf("\tAlterar quantidade %.2f ->: ", p -> quantity);
   scanf("%f", &p -> quantity);
 
-  printf("\tAlterar preco %.2f ->: ", p -> price);
+  printf("\tAlterar preco R$ %.2f ->: ", p -> price);
   scanf("%f", &p -> price);
 
   printf("\tAlterar mes %d ->: ", p -> month);
@@ -765,14 +763,14 @@ void dataDelete(struct types *p) { // Deletar produto
   auxPrice = p -> price;
   auxQuantity = NULL;
   auxPrice = NULL;
-  
+
   p -> quantity = auxQuantity;
   p -> price = auxPrice;
   p -> month = NULL;
   p -> year = NULL;
 
   // Pulando a struct (bytes)
-  fseek(f, search * sizeof(struct types), 0); 
+  fseek(f, search * sizeof(struct types), 0);
 
   // Inserindo dados excluidos
   fwrite(&(*p), sizeof(struct types), 1, f);
