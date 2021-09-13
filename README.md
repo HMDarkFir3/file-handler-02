@@ -69,15 +69,6 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## 🧑 Autores
 
-<img style="border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/D4E35AQH8xGzijsXEPg/profile-framedphoto-shrink_400_400/0/1628855055206?e=1631642400&v=beta&t=T100ZtWn4KRfqsEOg4x_X-ouRon7xaUB8wtq-bET6Mg" width="150px;" alt=""/>
- <h4>Fernando Brino Novo Espírito Santo</h4>
-
-<p align="left">
-  <a href="https://www.linkedin.com/in/fernando-brino-b15028209/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
-<p>
-
----
-
 <img style="border-radius: 50%;" src="https://github.com/HMDarkFir3.png" width="150px;" alt=""/>
  <h4>Henrique Luís Oliveira Marques</h4>
 
@@ -99,8 +90,6 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 ## 📝 Licença
 
 Este projeto esta sobe a licença MIT. Veja a [LICENÇA](./LICENSE) para saber mais.
-<br>
-👋🏽 [Entre em contato! - Fernando](https://www.linkedin.com/in/fernando-brino-b15028209/)
 <br>
 👋🏽 [Entre em contato! - Henrique](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
 <br>
