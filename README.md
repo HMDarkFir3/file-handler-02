@@ -99,6 +99,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 ## 📝 Licença
 
 Este projeto esta sobe a licença MIT. Veja a [LICENÇA](./LICENSE) para saber mais.
+<br>
 👋🏽 [Entre em contato! - Fernando](https://www.linkedin.com/in/fernando-brino-b15028209/)
 <br>
 👋🏽 [Entre em contato! - Henrique](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
