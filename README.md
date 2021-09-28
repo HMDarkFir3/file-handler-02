@@ -43,10 +43,10 @@ Para clonar e executar este aplicativo, você precisará do [Git](https://git-sc
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/HMDarkFir3/DesafioFaculdade_02.git
+$ git clone https://github.com/HMDarkFir3/file-manipulation-02.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd DesafioFaculdade_02
+$ cd file-manipulation-02
 ```
 
 ## 🚀 Tecnologias Utilizadas
