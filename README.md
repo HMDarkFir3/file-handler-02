@@ -1,7 +1,7 @@
-<h1 align="center">Manipulador de Arquivos 2.0</h1>
+<h1 align="center">File Handler 2.0</h1>
 
 <h1 align="center">
-  🚀 Concluído 🚀
+  🚀 Done 🚀
 </h1>
 
 <p align="center" >
@@ -14,60 +14,60 @@
 
 ---
 
-## 📋 Sobre
+## 📋 About
 
-Manipulador de arquivos, utilizando struct. Desafio 2.0 da faculdade, linguagem C.
-
----
-
-## ⚙️ Funcionalidades
-
-- [x] Adicionar dados.
-- [x] Listar dados.
-- [x] Listar dados pela faixa de preço.
-- [x] Pesquisar dados pelo nome.
-- [x] Pesquisar dados pela data de validade.
-- [x] Editar nome do dado.
-- [x] Editar quantidade do dado.
-- [x] Editar preço do dado.
-- [x] Deletar dados.
-- [x] Sair do programa.
+File handler, using struct. College Challenge 2.0.
 
 ---
 
-## 📂 Como rodar este projeto
+## ⚙️ Features
 
-Para clonar e executar este aplicativo, você precisará do [Git](https://git-scm.com) instalado em seu computador.
+- [x] Add data.
+- [x] List data.
+- [x] List data by price range.
+- [x] Search data by name.
+- [x] Search data by expiration date.
+- [x] Edit data name.
+- [x] Edit amount of data.
+- [x] Edit data price.
+- [x] Delete data.
+- [x] Exit the program.
 
-### 🌀 Clonando o repositório
+---
+
+## 📂 How to run this project
+
+To clone and run this app, you will need to [Git](https://git-scm.com).
+
+### 🌀 Cloning the repository
 
 ```bash
-# Clone este repositório
-$ git clone https://github.com/HMDarkFir3/file-manipulation-02.git
+# Clone this repository
+$ git clone https://github.com/HMDarkFir3/file-handler-02.git
 
-# Acesse a pasta do projeto no terminal/cmd
-$ cd file-manipulation-02
+# Access the project folder in the terminal/cmd
+$ cd file-handler-02
 ```
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
-O projeto foi desenvolvido utilizando as seguintes tecnologias:
+The project was developed using the following technologies:
 
 - [C](https://docs.microsoft.com/pt-br/cpp/?view=msvc-160)
 
 ---
 
-## 💪 Como contribuir para o projeto
+## 💪 How to contribute to the project
 
-1. Faça um **fork** do projeto.
-2. Crie uma nova branch com as suas alterações: `git checkout -b my-feature`
-3. Salve as alterações e crie uma mensagem de commit contando o que você fez: `git commit -m "feature: My new feature"`
-4. Envie as suas alterações: `git push origin my-feature`
-   > Caso tenha alguma dúvida confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions)
+1. Make a **fork** of the project.
+2. Create a new branch with your changes: `git checkout -b my-feature`
+3. Save the changes and create a commit message telling you what you've done: `git commit -m "feature: My new feature"`
+4. Submit your changes: `git push origin my-feature`
+   > If you have any questions check out this [guide on how to contribute to GitHub](https://github.com/firstcontributions/first-contributions)
 
 ---
 
-## 🧑 Autores
+## 🧑 Authors
 
 <img style="border-radius: 50%;" src="https://github.com/HMDarkFir3.png" width="150px;" alt=""/>
  <h4>Henrique Luís Oliveira Marques</h4>
@@ -87,10 +87,10 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ---
 
-## 📝 Licença
+## 📝 License
 
-Este projeto esta sobe a licença MIT. Veja a [LICENÇA](./LICENSE) para saber mais.
+This project is under the MIT license. See the [LICENSE](./LICENSE) to learn more.
 <br>
-👋🏽 [Entre em contato! - Henrique](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
+👋🏽 [Get in touch! - Henrique](https://www.linkedin.com/in/henrique-luís-oliveira-marques-3406361a7/)
 <br>
-👋🏽 [Entre em contato! - Vinícius](https://www.linkedin.com/in/vinícius-andrade-a671491b3/)
+👋🏽 [Get in touch! - Vinícius](https://www.linkedin.com/in/vinícius-andrade-a671491b3/)
