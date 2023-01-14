@@ -78,11 +78,11 @@ The project was developed using the following technologies:
   
 ---
   
-<img style="border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/C5603AQGctH94qrj_WA/profile-displayphoto-shrink_400_400/0/1599742973448?e=1637193600&v=beta&t=vf6vZFLueJgeFruzF_ej9Htce7fQjwDHIXYHmszXXp0" width="150px;" alt=""/>
+<img style="border-radius: 50%;" src="https://media.licdn.com/dms/image/C5603AQGctH94qrj_WA/profile-displayphoto-shrink_800_800/0/1599742973448?e=1678924800&v=beta&t=nhaTeBz-K49nGWMRcU-Um9h3zH6rQPPV6VbhBFHYgwQ" width="150px;" alt=""/>
 <h4>Vinícius Andrade</h4> 
 
 <p align="left">
-  <a href="https://www.linkedin.com/in/vinícius-andrade-a671491b3/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+  <a href="https://www.linkedin.com/in/vin%C3%ADcius-andrade-a671491b3/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
 <p>
 
 ---
